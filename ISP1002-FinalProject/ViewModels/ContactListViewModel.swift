@@ -6,3 +6,64 @@
 //
 
 import Foundation
+
+struct ContactListViewModel {
+    private var contactsArray: [ContactModel] = []
+    var filteredArray: [ContactModel] = []
+    var contactsDict: [String: [ContactModel]] = [:]
+    var sectionHeaderArray: [String] = []
+    
+    init() {
+        filteredArray.append(ContactModel(firstName: "Aman", lastName: "Thakur"))
+        filteredArray.append(ContactModel(firstName: "Bob", lastName: "Marley"))
+        filteredArray.append(ContactModel(firstName: "Cat", lastName: "Top"))
+        contactsDict = getContactDetails()
+        sectionHeaderArray = getSectionHeaderArray()
+    }
+    
+    private func getContactDetails() -> [String: [ContactModel]] {
+        var dataDict: [String:[ContactModel]] = [:]
+        if !filteredArray.isEmpty {
+            dataDict["#"] = []
+        }
+        
+        for model in filteredArray {
+            if let firstChar = model.firstNameChar {
+                if dataDict[firstChar] == nil {
+                    dataDict[firstChar] = [model]
+                } else {
+                    dataDict[firstChar]?.append(model)
+                }
+            } else {
+                dataDict["#"]?.append(model)
+            }
+        }
+        
+        if let items = dataDict["#"],
+           items.isEmpty {
+            dataDict.removeValue(forKey: "#")
+        }
+        
+        return dataDict
+    }
+    
+    private func getSectionHeaderArray() -> [String] {
+        if contactsDict.keys.count > 0 {
+            var keyArr = Array(contactsDict.keys).sorted()
+            keyArr.append(keyArr.remove(at: 0))
+            return keyArr.sorted()
+        }
+        return []
+    }
+    
+    func getContactModelArrayForIndex(index: Int) -> [ContactModel]? {
+        if index > sectionHeaderArray.count {
+            return nil
+        }
+        let key = sectionHeaderArray[index]
+        if let modelArr = contactsDict[key] {
+            return modelArr
+        }
+        return nil
+    }
+}

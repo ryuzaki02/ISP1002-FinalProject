@@ -80,6 +80,44 @@
                                                 <constraint firstItem="LgL-R3-I6G" firstAttribute="height" secondItem="n3z-oe-zoa" secondAttribute="height" id="ori-9u-nc8"/>
                                             </constraints>
                                         </view>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContactListTableViewCell" id="y5B-Wl-Vh8" customClass="ContactListTableViewCell" customModule="ISP1002_FinalProject" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="146.5" width="414" height="43.5"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y5B-Wl-Vh8" id="dgy-dP-Kz1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KGk-LY-EFL">
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eox-aD-4Yh">
+                                                                    <rect key="frame" x="15" y="22" width="0.0" height="0.0"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstItem="eox-aD-4Yh" firstAttribute="leading" secondItem="KGk-LY-EFL" secondAttribute="leading" constant="15" id="0h3-Fh-Yau"/>
+                                                                <constraint firstItem="eox-aD-4Yh" firstAttribute="centerY" secondItem="KGk-LY-EFL" secondAttribute="centerY" id="NB7-nE-Y14"/>
+                                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eox-aD-4Yh" secondAttribute="trailing" constant="15" id="myE-vT-68w"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="KGk-LY-EFL" firstAttribute="top" secondItem="dgy-dP-Kz1" secondAttribute="top" id="Yhx-cI-PHC"/>
+                                                        <constraint firstAttribute="trailing" secondItem="KGk-LY-EFL" secondAttribute="trailing" id="coW-Ur-eee"/>
+                                                        <constraint firstAttribute="bottom" secondItem="KGk-LY-EFL" secondAttribute="bottom" id="kCE-e8-4f9"/>
+                                                        <constraint firstItem="KGk-LY-EFL" firstAttribute="leading" secondItem="dgy-dP-Kz1" secondAttribute="leading" id="rwW-up-4FC"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="nameLabel" destination="eox-aD-4Yh" id="QYa-Q2-ake"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,6 +141,9 @@
                             <constraint firstItem="mmg-Ai-hQd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wWH-PY-B1Q"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="contactsTableView" destination="kgN-Lb-hp0" id="m9D-4H-wwV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
