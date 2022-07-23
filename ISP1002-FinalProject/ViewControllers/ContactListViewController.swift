@@ -25,11 +25,38 @@ class ContactListViewController: UIViewController {
         contactsTableView.dataSource = self
         contactsTableView.sectionHeaderHeight = 30.0
     }
+    
+    //MARK: - Button Actions
+    @IBAction func plusButtonAction(_ sender: UIButton!) {
+        openProfileViewController(profileViewState: .new)
+    }
+    
+    //MARK: - Open Profile view controller
+    private func openProfileViewController(profileViewState: AddUpdateContactViewModel.ProfileViewState, shouldPresent: Bool = true){
+        let profileViewModel = AddUpdateContactViewModel(profileViewState: profileViewState)
+        let profileVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddUpdateContactViewController") as! AddUpdateContactViewController
+        profileVC.setupData(profileViewModel: profileViewModel)
+        profileVC.headerViewDelegate = self
+        if shouldPresent{
+            let navControl = CustomNavigationController.init(rootViewController: profileVC)
+            present(navControl, animated: true, completion: nil)
+        }else{
+            navigationController?.pushViewController(profileVC, animated: true)
+        }
+    }
+}
+
+extension ContactListViewController: ContactChangedProtocol {
+    func contactDidChange(contactModel: ContactModel, isNew: Bool) {
+        
+    }
 }
 
 extension ContactListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let modelArray = contactListViewModel.getContactModelArrayForIndex(index: indexPath.section) {
+            openProfileViewController(profileViewState: .showOnly(contactModel: modelArray[indexPath.row]))
+        }
     }
 }
 
