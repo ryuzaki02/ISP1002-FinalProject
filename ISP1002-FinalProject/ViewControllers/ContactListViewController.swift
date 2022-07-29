@@ -10,6 +10,7 @@ import UIKit
 class ContactListViewController: UIViewController {
     
     @IBOutlet weak var contactsTableView: UITableView!
+    @IBOutlet weak var plusButton: UIButton!
     
     private var contactListViewModel = ContactListViewModel()
     let cellIdentifier = "ContactListTableViewCell"
@@ -17,7 +18,7 @@ class ContactListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        // Do any additional setup after loading the view.
+        plusButton.tintColor = UIColor.customGreen
     }
     
     private func setupTableView() {
@@ -46,7 +47,7 @@ class ContactListViewController: UIViewController {
     }
 }
 
-extension ContactListViewController: ContactChangedProtocol {
+extension ContactListViewController: ProfileHeaderViewProtocol {
     func contactDidChange(contactModel: ContactModel, isNew: Bool) {
         
     }

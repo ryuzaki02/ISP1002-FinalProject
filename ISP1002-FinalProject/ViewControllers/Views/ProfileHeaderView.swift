@@ -7,14 +7,18 @@
 
 import UIKit
 
-protocol ContactChangedProtocol {
+protocol ProfileHeaderViewProtocol {
     func contactDidChange(contactModel: ContactModel, isNew: Bool)
+}
+
+protocol ProfileHeaderCameraPickerDelegate {
+    func openImagePicker()
 }
 
 class ProfileHeaderView: UIView {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profileImageView: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var buttonStackView: UIStackView!
     @IBOutlet weak var stackViewBottomContraint: NSLayoutConstraint!
@@ -23,14 +27,16 @@ class ProfileHeaderView: UIView {
     
     private var initalHeaderHeight: CGFloat = 277.0
     private var contactModel: ContactModel?
-    private var delegate: ContactChangedProtocol?
+    private var delegate: ProfileHeaderViewProtocol?
+    private var pickerDelegate: ProfileHeaderCameraPickerDelegate?
     
     override func awakeFromNib() {
         profileImageView.layer.borderColor = UIColor.white.cgColor
     }
     
-    func initialiseHeaderWith(delegate: ContactChangedProtocol?) {
+    func initialiseHeaderWith(delegate: ProfileHeaderViewProtocol?, pickerDelegate: ProfileHeaderCameraPickerDelegate?) {
         self.delegate = delegate
+        self.pickerDelegate = pickerDelegate
     }
     
     func setupHeader(contactModel: ContactModel?, isEditable: Bool) {
@@ -47,5 +53,15 @@ class ProfileHeaderView: UIView {
         stackViewBottomContraint.constant = isEditable ? -100 : 12
         nameLabel.isHidden = isEditable
     }
+    
+    //MARK: - Button actions
+    @IBAction func cameraButtonAction(_ sender: UIButton!) {
+        pickerDelegate?.openImagePicker()
+    }
+}
 
+extension ProfileHeaderView: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        profileImageView.image = image
+    }
 }

@@ -28,17 +28,19 @@ class AddUpdateContactViewController: UIViewController {
     private var profileViewModel: AddUpdateContactViewModel?
     private var contactModel: ContactModel?
     private var doneBarButtonItem: UIBarButtonItem?
-    var headerViewDelegate: ContactChangedProtocol?
+    var headerViewDelegate: ProfileHeaderViewProtocol?
     private var dataArray: [ProfileModel]?
     private var hasOtherFieldsData = true
     private var validator = Validator()
+    private var imagePicker: ImagePicker!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        headerView.initialiseHeaderWith(delegate: headerViewDelegate)    
+        headerView.initialiseHeaderWith(delegate: headerViewDelegate, pickerDelegate: self)
         updateData()
         addKeyboardTapGesture()
+        self.imagePicker = ImagePicker(presentationController: self, delegate: headerView)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -266,11 +268,17 @@ extension AddUpdateContactViewController: UITextFieldDelegate {
     }
 }
 
-extension AddUpdateContactViewController: ContactChangedProtocol{
+extension AddUpdateContactViewController: ProfileHeaderViewProtocol {
     func contactDidChange(contactModel: ContactModel, isNew: Bool) {
         self.dismiss(animated: true, completion: nil)
         setRightBarButtonItem(buttonState: .edit)
         updateViewData(contactModel: contactModel)
         headerViewDelegate?.contactDidChange(contactModel: contactModel, isNew: isNew)
+    }
+}
+
+extension AddUpdateContactViewController: ProfileHeaderCameraPickerDelegate {
+    func openImagePicker() {
+        self.imagePicker.present(from: view)
     }
 }
