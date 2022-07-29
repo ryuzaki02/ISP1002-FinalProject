@@ -76,9 +76,9 @@ class AddUpdateContactViewController: UIViewController {
     
     func setRightBarButtonItem(buttonState: RightBarButtonState) {
         navigationItem.rightBarButtonItems?.removeAll()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         switch buttonState {
         case .done:
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
             doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
             navigationItem.rightBarButtonItem = doneBarButtonItem
         case .edit:
@@ -129,9 +129,8 @@ class AddUpdateContactViewController: UIViewController {
     
     private func updateForShowOnlyState(contactModel: ContactModel) {
         self.contactModel = contactModel
+        dataArray = profileViewModel?.getDataForTableView()
         headerView.setupHeader(contactModel: contactModel, isEditable: false)
-        //TODO: - Save contact to DB
-//        updateContactModelForContactId(contactId: contactModel.contactId)
         setRightBarButtonItem(buttonState: .edit)
     }
     
@@ -153,8 +152,7 @@ class AddUpdateContactViewController: UIViewController {
     }
     
     private func getUpdatedContactModelFromProfileDataArray() -> ContactModel? {
-        guard let contactModel = contactModel,
-              let profileViewModel = profileViewModel,
+        guard let profileViewModel = profileViewModel,
               let dataArray = dataArray else {
             return nil
         }
@@ -185,23 +183,14 @@ class AddUpdateContactViewController: UIViewController {
         else {
             return
         }
-        //TODO: - Check this part
-        //setRightBarButtonItem(buttonState: .indicator)
+        
         view.isUserInteractionEnabled = false
         
         switch profileViewModel?.getProfileViewState() ?? .new {
         case .new:
-            //TODO: - Check this part
-//            addContact(contactModel: contactModel)
-            #if DEBUG
-            print("")
-            #endif
+            saveOrUpdateContact(state: .new, contactModel: contactModel)
         case .edit(_):
-            //TODO: - Check this part
-//            updateContactModel(contactModel: contactModel)
-            #if DEBUG
-            print("")
-            #endif
+            saveOrUpdateContact(state: .edit, contactModel: contactModel)
         default:
             #if DEBUG
             print("")
@@ -225,7 +214,23 @@ class AddUpdateContactViewController: UIViewController {
     @objc func keyboardWillHide(_ notification: Notification) {
         tableView.contentInset = UIEdgeInsets.zero
     }
-
+    
+    func saveOrUpdateContact(state: ProfileViewState, contactModel: ContactModel) {
+        switch state {
+        case .new:
+            dismiss(animated: true, completion: nil)
+            headerViewDelegate?.contactDidChange(contactModel: contactModel, isNew: true)
+            profileViewModel?.updateState(contactModel: contactModel)
+        case .edit:
+            dismiss(animated: true, completion: nil)
+            headerViewDelegate?.contactDidChange(contactModel: contactModel, isNew: false)
+            profileViewModel?.updateState(contactModel: contactModel)
+        default:
+            #if DEBUG
+            print("")
+            #endif
+        }
+    }
 }
 
 extension AddUpdateContactViewController: UITableViewDataSource {

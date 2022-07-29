@@ -26,8 +26,7 @@ class ImagePicker: NSObject {
 
         self.presentationController = presentationController
         self.delegate = delegate
-
-        self.pickerController.delegate = self
+        
         self.pickerController.allowsEditing = true
         self.pickerController.mediaTypes = ["public.image"]
     }

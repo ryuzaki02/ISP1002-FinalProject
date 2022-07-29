@@ -27,6 +27,9 @@
 		073DF0D02878DFB200D9DED1 /* AddUpdateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DF0CF2878DFB200D9DED1 /* AddUpdateContactViewController.swift */; };
 		073DF0D22878DFC700D9DED1 /* AddUpdateContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073DF0D12878DFC700D9DED1 /* AddUpdateContactViewModel.swift */; };
 		07D78B8728944BC3009FCA2D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D78B8628944BC3009FCA2D /* ImagePicker.swift */; };
+		07D78B9B28945FB9009FCA2D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D78B9A28945FB9009FCA2D /* DatabaseManager.swift */; };
+		07D78BAB28947D39009FCA2D /* ContactModelDB+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D78BA928947D39009FCA2D /* ContactModelDB+CoreDataClass.swift */; };
+		07D78BAC28947D39009FCA2D /* ContactModelDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D78BAA28947D39009FCA2D /* ContactModelDB+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		073DF0CF2878DFB200D9DED1 /* AddUpdateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUpdateContactViewController.swift; sourceTree = "<group>"; };
 		073DF0D12878DFC700D9DED1 /* AddUpdateContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUpdateContactViewModel.swift; sourceTree = "<group>"; };
 		07D78B8628944BC3009FCA2D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		07D78B9A28945FB9009FCA2D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		07D78BA928947D39009FCA2D /* ContactModelDB+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactModelDB+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07D78BAA28947D39009FCA2D /* ContactModelDB+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContactModelDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,7 @@
 		073DF0AE2878DB4E00D9DED1 /* ISP1002-FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				07D78B9128945F3C009FCA2D /* Database */,
 				0712FF52288B609300EC66FF /* Extensions */,
 				0712FF4F288B604D00EC66FF /* CustomClasses */,
 				073DF0C82878DB7E00D9DED1 /* Models */,
@@ -163,6 +170,16 @@
 				0712FF4D288B5B0800EC66FF /* ProfileModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		07D78B9128945F3C009FCA2D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				07D78BA928947D39009FCA2D /* ContactModelDB+CoreDataClass.swift */,
+				07D78BAA28947D39009FCA2D /* ContactModelDB+CoreDataProperties.swift */,
+				07D78B9A28945FB9009FCA2D /* DatabaseManager.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,10 +260,13 @@
 				07012DDF28825E6400FC73C1 /* ContactListTableViewCell.swift in Sources */,
 				0712FF5C288B639600EC66FF /* TextFieldWithType.swift in Sources */,
 				073DF0CC2878DF0F00D9DED1 /* ContactListViewModel.swift in Sources */,
+				07D78BAB28947D39009FCA2D /* ContactModelDB+CoreDataClass.swift in Sources */,
+				07D78BAC28947D39009FCA2D /* ContactModelDB+CoreDataProperties.swift in Sources */,
 				0712FF4E288B5B0800EC66FF /* ProfileModel.swift in Sources */,
 				073DF0BA2878DB4E00D9DED1 /* ISP1002_FinalProject.xcdatamodeld in Sources */,
 				073DF0CE2878DF1800D9DED1 /* ContactModel.swift in Sources */,
 				073DF0CA2878DBAB00D9DED1 /* ContactListViewController.swift in Sources */,
+				07D78B9B28945FB9009FCA2D /* DatabaseManager.swift in Sources */,
 				0712FF5A288B636B00EC66FF /* AddUpdateTableViewCell.swift in Sources */,
 				073DF0B02878DB4E00D9DED1 /* AppDelegate.swift in Sources */,
 				0712FF4C288B574E00EC66FF /* ProfileHeaderView.swift in Sources */,

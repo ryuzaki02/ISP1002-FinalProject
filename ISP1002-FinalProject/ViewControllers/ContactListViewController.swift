@@ -49,7 +49,9 @@ class ContactListViewController: UIViewController {
 
 extension ContactListViewController: ProfileHeaderViewProtocol {
     func contactDidChange(contactModel: ContactModel, isNew: Bool) {
-        
+        isNew ? DatabaseManager.shared.saveContactToDBFor(model: contactModel) : DatabaseManager.shared.updateContact(model: contactModel)
+        contactListViewModel.getData()
+        contactsTableView.reloadData()
     }
 }
 
@@ -91,5 +93,20 @@ extension ContactListViewController: UITableViewDataSource {
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         let sectionHeaderArray = contactListViewModel.sectionHeaderArray
         return sectionHeaderArray
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let modelArray = contactListViewModel.getContactModelArrayForIndex(index: indexPath.section) {
+                let model = modelArray[indexPath.row]
+                DatabaseManager.shared.deleteContact(contactId: model.contactId)
+                contactListViewModel.getData()
+                if modelArray.count > 1 {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else {
+                    tableView.deleteSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .automatic)
+                }
+            }
+        }
     }
 }

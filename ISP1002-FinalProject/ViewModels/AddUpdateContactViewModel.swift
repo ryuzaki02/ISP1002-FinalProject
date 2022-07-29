@@ -39,11 +39,9 @@ struct AddUpdateContactViewModel {
         self.profileViewState = profileViewState
     }
     
-    //TODO: - Check this method
-    
-//    func updateContactModelWith() -> ContactModel? {
-
-//    }
+    mutating func updateState(contactModel: ContactModel) {
+        profileViewState.updateCaseFor(contactModel: contactModel)
+    }
     
     func getDataForTableView() -> [ProfileModel] {
         switch profileViewState {
@@ -102,6 +100,6 @@ struct AddUpdateContactViewModel {
                 phone = model.value ?? ""
             }
         }
-        return ContactModel(contactId: contactModel?.contactId ?? nil, firstName: firstName, lastName: lastName, phoneNumber: phone, email: email, profilePic: contactModel?.profilePic ?? "")
+        return ContactModel(contactId: contactModel?.contactId ?? UUID().uuidString, firstName: firstName, lastName: lastName, phoneNumber: phone, email: email, profilePic: contactModel?.profilePic ?? "")
     }
 }

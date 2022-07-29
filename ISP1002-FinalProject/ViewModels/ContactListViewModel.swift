@@ -14,9 +14,11 @@ struct ContactListViewModel {
     var sectionHeaderArray: [String] = []
     
     init() {
-        filteredArray.append(ContactModel(firstName: "Aman", lastName: "Thakur"))
-        filteredArray.append(ContactModel(firstName: "Bob", lastName: "Marley"))
-        filteredArray.append(ContactModel(firstName: "Cat", lastName: "Top"))
+        getData()
+    }
+    
+     mutating func getData() {
+        filteredArray = DatabaseManager.shared.fetchAllContacts() ?? []
         contactsDict = getContactDetails()
         sectionHeaderArray = getSectionHeaderArray()
     }
