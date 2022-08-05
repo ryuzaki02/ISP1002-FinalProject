@@ -286,4 +286,8 @@ extension AddUpdateContactViewController: ProfileHeaderCameraPickerDelegate {
     func openImagePicker() {
         self.imagePicker.present(from: view)
     }
+    
+    func imageDidSelect(image: UIImage) {
+        profileViewModel?.profileImage = image
+    }
 }

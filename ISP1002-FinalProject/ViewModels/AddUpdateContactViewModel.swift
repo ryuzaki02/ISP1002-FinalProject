@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct AddUpdateContactViewModel {
     enum ProfileViewState {
@@ -32,8 +33,8 @@ struct AddUpdateContactViewModel {
         case email = "Email"
     }
     
-    private var contactListModel: ContactModel?
     private var profileViewState: ProfileViewState = .new
+    var profileImage: UIImage?
     
     init(profileViewState: ProfileViewState) {
         self.profileViewState = profileViewState
@@ -60,11 +61,7 @@ struct AddUpdateContactViewModel {
                     ProfileModel.init(dataType: .email, value: model.email ?? "Not Available", isEditable: false)]
         }
     }
-    
-    func getContactListModel() -> ContactModel? {
-        return contactListModel
-    }
-    
+  
     func getProfileViewState() -> ProfileViewState {
         return profileViewState
     }
@@ -100,6 +97,25 @@ struct AddUpdateContactViewModel {
                 phone = model.value ?? ""
             }
         }
-        return ContactModel(contactId: contactModel?.contactId ?? UUID().uuidString, firstName: firstName, lastName: lastName, phoneNumber: phone, email: email, profilePic: contactModel?.profilePic ?? "")
+        let contactId = contactModel?.contactId ?? UUID().uuidString
+        let key = "image\(contactId)\(phone)"
+        let urlString = saveImageToLocalPath(key: key)
+        let profilePicKey: String? = urlString == nil ? nil : key
+        return ContactModel(contactId: contactId, firstName: firstName, lastName: lastName, phoneNumber: phone, email: email, profilePic: profilePicKey ?? contactModel?.profilePic ?? "")
+    }
+    
+    func saveImageToLocalPath(key: String) -> String? {
+        if let profileImage = profileImage,
+           let pngRepresentation = profileImage.pngData(),
+           let filePath = ContactFileManager.shared.filePath(key: key) {
+            do  {
+                try pngRepresentation.write(to: filePath,
+                                            options: .atomic)
+                return filePath.absoluteString
+            } catch let err {
+                print("Saving file resulted in error: ", err)
+            }
+        }
+        return nil
     }
 }

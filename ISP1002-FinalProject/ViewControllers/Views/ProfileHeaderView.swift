@@ -13,6 +13,8 @@ protocol ProfileHeaderViewProtocol {
 
 protocol ProfileHeaderCameraPickerDelegate {
     func openImagePicker()
+    
+    func imageDidSelect(image: UIImage)
 }
 
 class ProfileHeaderView: UIView {
@@ -43,6 +45,11 @@ class ProfileHeaderView: UIView {
         self.contactModel = contactModel
         if let contactModel = contactModel {
             nameLabel.text = "\(contactModel.firstName ?? "") \(contactModel.lastName ?? "")"
+            if let profileUrl = contactModel.profilePic,
+               let fileData = ContactFileManager.shared.retrieveImage(key: profileUrl),
+               let image = UIImage(data: fileData) {
+                profileImageView.image = image
+            }
         }
         updateHeaderUI(isEditable: isEditable)
     }
@@ -63,5 +70,8 @@ class ProfileHeaderView: UIView {
 extension ProfileHeaderView: ImagePickerDelegate {
     func didSelect(image: UIImage?) {
         profileImageView.image = image
+        if let image = image {
+            pickerDelegate?.imageDidSelect(image: image)
+        }
     }
 }

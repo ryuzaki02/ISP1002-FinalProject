@@ -13,7 +13,7 @@ protocol ImagePickerDelegate: AnyObject {
     func didSelect(image: UIImage?)
 }
 
-class ImagePicker: NSObject {
+class ImagePicker: NSObject, UINavigationControllerDelegate {
 
     private let pickerController: UIImagePickerController
     private weak var presentationController: UIViewController?
@@ -26,6 +26,7 @@ class ImagePicker: NSObject {
 
         self.presentationController = presentationController
         self.delegate = delegate
+        self.pickerController.delegate = self
         
         self.pickerController.allowsEditing = true
         self.pickerController.mediaTypes = ["public.image"]

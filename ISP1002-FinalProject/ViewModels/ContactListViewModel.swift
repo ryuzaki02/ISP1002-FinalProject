@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ContactListViewModel {
     private var contactsArray: [ContactModel] = []
