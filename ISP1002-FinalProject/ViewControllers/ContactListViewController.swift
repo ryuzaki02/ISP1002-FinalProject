@@ -11,6 +11,7 @@ class ContactListViewController: UIViewController {
     
     @IBOutlet weak var contactsTableView: UITableView!
     @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     private var contactListViewModel = ContactListViewModel()
     let cellIdentifier = "ContactListTableViewCell"
@@ -18,6 +19,8 @@ class ContactListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        searchBar.delegate = self
+        addKeyboardTapGesture()
         plusButton.tintColor = UIColor.customGreen
     }
     
@@ -44,6 +47,16 @@ class ContactListViewController: UIViewController {
         }else{
             navigationController?.pushViewController(profileVC, animated: true)
         }
+    }
+    
+    private func addKeyboardTapGesture() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
@@ -108,5 +121,12 @@ extension ContactListViewController: UITableViewDataSource {
                 }
             }
         }
+    }
+}
+
+extension ContactListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        contactListViewModel.getData(searchText: searchText)
+        contactsTableView.reloadData()
     }
 }

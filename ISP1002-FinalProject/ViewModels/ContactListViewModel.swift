@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 struct ContactListViewModel {
-    private var contactsArray: [ContactModel] = []
     var filteredArray: [ContactModel] = []
     var contactsDict: [String: [ContactModel]] = [:]
     var sectionHeaderArray: [String] = []
@@ -18,8 +17,11 @@ struct ContactListViewModel {
         getData()
     }
     
-     mutating func getData() {
+    mutating func getData(searchText: String = "") {
         filteredArray = DatabaseManager.shared.fetchAllContacts() ?? []
+        if !searchText.isEmpty {
+            filteredArray = filteredArray.filter { $0.firstName?.contains(searchText) ?? false || $0.lastName?.contains(searchText) ?? false }
+        }
         contactsDict = getContactDetails()
         sectionHeaderArray = getSectionHeaderArray()
     }
