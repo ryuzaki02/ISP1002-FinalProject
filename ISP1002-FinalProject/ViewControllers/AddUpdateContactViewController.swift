@@ -256,7 +256,7 @@ extension AddUpdateContactViewController: UITableViewDelegate {
 
 extension AddUpdateContactViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        doneBarButtonItem?.isEnabled = textField.text?.count == 1 && string.isEmpty && !hasOtherFieldsData ? false : true
+        doneBarButtonItem?.isEnabled = (textField.text?.count == 1 && string.isEmpty) || !hasOtherFieldsData ? false : true
         return true
     }
     

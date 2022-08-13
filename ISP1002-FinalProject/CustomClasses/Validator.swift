@@ -10,13 +10,12 @@ import Foundation
 class Validator{
     
     func checkIfOtherModelHasValue(dataArray: [ProfileModel]?, exceptType: AddUpdateContactViewModel.DataType) -> Bool{
-        var hasOtherFieldsData = false
+        var hasOtherFieldsData = true
         if let dataArray = dataArray {
             for model in dataArray{
-                if exceptType != model.dataType{
-                    if let value = model.value,
-                        !value.isEmpty{
-                        hasOtherFieldsData = true
+                if exceptType != model.dataType{                    
+                    if model.value == nil || model.value?.isEmpty == true {
+                        hasOtherFieldsData = false
                         break
                     }
                 }

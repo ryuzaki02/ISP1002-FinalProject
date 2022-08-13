@@ -427,6 +427,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ISP1002-FinalProject/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PhoneBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Contacts App wants to use Camera";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Contacts App wants to use Library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -456,6 +457,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "ISP1002-FinalProject/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PhoneBook;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Contacts App wants to use Camera";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Contacts App wants to use Library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

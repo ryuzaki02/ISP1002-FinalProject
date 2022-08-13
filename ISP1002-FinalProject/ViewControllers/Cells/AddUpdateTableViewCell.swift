@@ -14,8 +14,6 @@ class AddUpdateTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        nameLabel.textColor = UIColor.navigationTitleGrayColor
-        dataTextField.textColor = .black
         // Initialization code
     }
 
