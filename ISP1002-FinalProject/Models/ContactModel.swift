@@ -21,6 +21,10 @@ struct ContactModel {
         return nil
     }
     
+    // Mutating method to update the path of image
+    // param: path: String
+    // return: nothing
+    //
     mutating func updateProfilePic(path: String) {
         self.profilePic = path
     }

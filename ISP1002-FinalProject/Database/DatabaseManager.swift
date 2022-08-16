@@ -9,10 +9,16 @@ import Foundation
 import UIKit
 import CoreData
 
+// Class handles methods to save, update, delete and fetch operations
+//
 class DatabaseManager {
     
+    // MARK: - Variables
+    
+    // Singleton instance to the class
     static var shared = DatabaseManager()
     
+    // Provides object of AppDelegate class
     private var appDelegate: AppDelegate? {
         guard let appDelegate =
                 UIApplication.shared.delegate as? AppDelegate else {
@@ -21,10 +27,17 @@ class DatabaseManager {
         return appDelegate
     }
     
+    // Provides object of managed object context
     private var managedContext: NSManagedObjectContext? {
         return appDelegate?.persistentContainer.viewContext ?? nil
     }
     
+    // MARK: - Member functions
+    
+    // Method that saves the contact model to database
+    // params: model: ContactModel
+    // returns: nothing
+    //
     func saveContactToDBFor(model: ContactModel) {
         guard let managedContext = managedContext else {
             return
@@ -45,6 +58,10 @@ class DatabaseManager {
         }
     }
     
+    // Method that updates contact model to database
+    // params: model: ContactModel
+    // returns: nothing
+    //
     func updateContact(model: ContactModel) {
         guard let managedContext = managedContext,
               let contactId = model.contactId,
@@ -65,6 +82,10 @@ class DatabaseManager {
         }
     }
     
+    // Method that deletes contact model to database
+    // params: contactId: String
+    // returns: nothing
+    //
     func deleteContact(contactId: String?) {
         guard let managedContext = managedContext,
               let contactId = contactId,
@@ -79,6 +100,10 @@ class DatabaseManager {
         }
     }
     
+    // Method that fetches all the saved contact models from database
+    // params: nothing
+    // returns: Array of ContactModel Objects
+    //
     func fetchAllContacts() -> [ContactModel]? {
         guard let managedContext = managedContext else {
             return nil
@@ -101,6 +126,10 @@ class DatabaseManager {
         return nil
     }
     
+    // Method that fetches single contact model database object from database
+    // params: contactModelId: String
+    // returns: ContactModelDB object
+    //
     func fetchContactForId(contactModelId: String) -> ContactModelDB? {
         guard let managedContext = managedContext else {
             return nil

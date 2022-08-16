@@ -9,13 +9,18 @@
 import Foundation
 import CoreData
 
-
+// Extension to class for Database model for contact
+//
 extension ContactModelDB {
 
+    // Class method to fetch data
+    //
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ContactModelDB> {
         return NSFetchRequest<ContactModelDB>(entityName: "ContactModelDB")
     }
 
+    // Member vairables
+    //
     @NSManaged public var firstName: String?
     @NSManaged public var imageUrl: String?
     @NSManaged public var lastName: String?

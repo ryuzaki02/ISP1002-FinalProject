@@ -13,10 +13,17 @@ struct ContactListViewModel {
     var contactsDict: [String: [ContactModel]] = [:]
     var sectionHeaderArray: [String] = []
     
+    // MARK: - Initialiser
     init() {
         getData()
     }
     
+    // MARK: - Methods
+    //
+    // Mutating method to setup initial local variables
+    // param: searchText: String could be empty or not
+    // return: nothing
+    //
     mutating func getData(searchText: String = "") {
         filteredArray = DatabaseManager.shared.fetchAllContacts() ?? []
         if !searchText.isEmpty {
@@ -26,6 +33,10 @@ struct ContactListViewModel {
         sectionHeaderArray = getSectionHeaderArray()
     }
     
+    // Method to get the contact details as key-value pair with the first letter as key
+    // param: nothing
+    // return: Dictionary of first letter as key and array of contact models
+    //
     private func getContactDetails() -> [String: [ContactModel]] {
         var dataDict: [String:[ContactModel]] = [:]
         if !filteredArray.isEmpty {
@@ -52,6 +63,10 @@ struct ContactListViewModel {
         return dataDict
     }
     
+    // Method to provides section headers
+    // param: nothing
+    // return: Array of section headers
+    //
     private func getSectionHeaderArray() -> [String] {
         if contactsDict.keys.count > 0 {
             var keyArr = Array(contactsDict.keys).sorted()
@@ -61,6 +76,10 @@ struct ContactListViewModel {
         return []
     }
     
+    // Method to provide array of contact models for header index
+    // param: index: Integer
+    // return: array of contact models
+    //
     func getContactModelArrayForIndex(index: Int) -> [ContactModel]? {
         if index > sectionHeaderArray.count {
             return nil

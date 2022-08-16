@@ -7,9 +7,15 @@
 
 import Foundation
 
-class Validator{
+// Validator class to check if field is empty or not on basis of type and data
+//
+class Validator {
     
-    func checkIfOtherModelHasValue(dataArray: [ProfileModel]?, exceptType: AddUpdateContactViewModel.DataType) -> Bool{
+    // Method to check wether the view with multiple fields has all filled or not
+    // params: dataArray: Array of ProfileModels, exceptType: Type of Field
+    // returns: boolean whether all the text fields are filled or not
+    //
+    func checkIfOtherModelHasValue(dataArray: [ProfileModel]?, exceptType: AddUpdateContactViewModel.DataType) -> Bool {
         var hasOtherFieldsData = true
         if let dataArray = dataArray {
             for model in dataArray{
@@ -23,5 +29,4 @@ class Validator{
         }
         return hasOtherFieldsData
     }
-    
 }

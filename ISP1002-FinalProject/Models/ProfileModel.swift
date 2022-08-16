@@ -12,6 +12,10 @@ struct ProfileModel {
     var value: String?
     var isEditable = true
     
+    // Mutating method to updated value of the field
+    // param: value: String
+    // return: nothing
+    //
     mutating func updateValue(value: String?){
         self.value = value
     }

@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        print("Database directory : \(applicationDocumentsDirectory.absoluteString)")
         return true
     }
 
@@ -35,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
+    // This lazy variable initialises the persisent container to save the data in it
+    //
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -63,6 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     // MARK: - Core Data Saving support
+    
+    // Variable that provides document directory's location
+    //
     lazy var applicationDocumentsDirectory: URL =
         {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.wconnect.WconnEct" in the application's documents Application Support directory.
@@ -70,12 +74,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return urls[urls.count-1]
     }()
     
+    // This method saves the data to context
+    // params: nothing
+    // returns: nothing
+    //
     func saveContext () {
-        lazy var applicationDocumentsDirectory: NSURL = {
-            let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-            return urls[urls.count-1] as NSURL
-        }()
-        print("=====================: " + (applicationDocumentsDirectory.absoluteString ?? ""))
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {

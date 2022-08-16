@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 struct AddUpdateContactViewModel {
+    
+    // Enum to manage state of Add/View/Update controller
     enum ProfileViewState {
         case new
         case edit(contactModel: ContactModel)
@@ -26,6 +28,7 @@ struct AddUpdateContactViewModel {
         }
     }
     
+    // Enum to manage the type of text fields present
     enum DataType: String {
         case firstName = "First Name"
         case lastName = "Last Name"
@@ -33,17 +36,29 @@ struct AddUpdateContactViewModel {
         case email = "Email"
     }
     
+    // MARK: - Variables
+    //
     private var profileViewState: ProfileViewState = .new
     var profileImage: UIImage?
     
+    // MARK: - Initialisers
+    //
     init(profileViewState: ProfileViewState) {
         self.profileViewState = profileViewState
     }
     
+    // Mutating method to update the state of contact model
+    // param: contactModel: ContactModel
+    // return: nothing
+    //
     mutating func updateState(contactModel: ContactModel) {
         profileViewState.updateCaseFor(contactModel: contactModel)
     }
     
+    // Method to get array of profile models for desired controller state
+    // param: nothing
+    // return: array of profile models
+    //
     func getDataForTableView() -> [ProfileModel] {
         switch profileViewState {
         case .new:
